@@ -16,19 +16,25 @@ import android.widget.ImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StatusFragment extends Fragment implements View.OnClickListener {
-    Button connectButton;
+public class StatusFragment extends Fragment implements View.OnClickListener{
 
-    @Override
-    public View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedinstanceState) {
-        View myView = inflater.inflate(R.layout.fragment_status, container, false);
-        connectButton = (Button) myView.findViewById(R.id.connectButton);
-        connectButton.setOnClickListener(this);
-        return myView;
+    public StatusFragment() {
+        // Required empty public constructor
+
     }
 
+
+
     @Override
-    public void onClick(View v) {
-        // implements your things
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_status, container, false);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
