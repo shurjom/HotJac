@@ -168,7 +168,7 @@ public class ledControl extends AppCompatActivity {
         @Override
         protected void onPreExecute()
         {
-            progress = ProgressDialog.show(ledControl.this, "Connecting...", "Please wait!!!");  //show a progress dialog
+            progress = ProgressDialog.show(ledControl.this, "Connecting...", "Please wait.");  //show a progress dialog
         }
 
         @Override
@@ -198,7 +198,7 @@ public class ledControl extends AppCompatActivity {
 
             if (!ConnectSuccess)
             {
-                msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
+                msg("Connection Failed. Try restarting the app.");
                 finish();
             }
             else

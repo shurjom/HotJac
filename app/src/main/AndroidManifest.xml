@@ -8,14 +8,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logoxxxhdpi"
-        android:label="@string/app_name"
+        android:icon="@drawable/logo_white"
+        android:label="HotJac"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".SplashScreen"
-            android:label="@string/app_name" >
+            android:label="HotJac" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,18 +24,18 @@
         </activity>
         <activity
             android:name=".StatusActivity"
-            android:label="@string/app_name">
+            android:label="HotJac">
 
         </activity>
 
         <activity
             android:name=".ledControl"
-            android:label="LED Control">
+            android:label="HotJac">
 
         </activity>
         <activity
             android:name=".DeviceList"
-            android:label="@string/title_activity_about">
+            android:label="HotJac">
         </activity>
 
     </application>
