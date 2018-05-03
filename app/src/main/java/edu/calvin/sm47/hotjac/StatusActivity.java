@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class StatusActivity extends AppCompatActivity  {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +24,12 @@ public class StatusActivity extends AppCompatActivity  {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_status);
 
+
         //Adds pager adapter support to main activity
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
         pager.setCurrentItem(1);
-
-
 
     }
 }

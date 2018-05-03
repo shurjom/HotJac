@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="button" type="id" />
+    <item name="listView" type="id" />
+    <item name="action_settings" type="id" />
+    <item name="on" type="id" />
+    <item name="off" type="id" />
+    <item name="discnt" type="id" />
+    <item name="abt" type="id" />
+</resources>
