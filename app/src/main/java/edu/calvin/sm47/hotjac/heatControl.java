@@ -7,28 +7,37 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.UUID;
 
+import static edu.calvin.sm47.hotjac.R.id.seekHeatControl;
 
-public class ledControl extends AppCompatActivity {
+
+public class heatControl extends AppCompatActivity {
 
    // Button btnOn, btnOff, btnDis;
-    ImageButton On, Off, Discnt, Abt;
+    ImageButton On, Off, Disconnect, Abt;
     String address = null;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
     BluetoothSocket btSocket = null;
     private boolean isBtConnected = false;
+    OutputStream taOut;
+    SeekBar seekHeatLevel;
+
     //SPP UUID. Look for it
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
@@ -42,19 +51,53 @@ public class ledControl extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_status);
 
+
         Intent newint = getIntent();
         address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS); //receive the address of the bluetooth device
 
         //view of the ledControl
-        setContentView(R.layout.activity_led_control);
+        setContentView(R.layout.activity_heat_control);
+
 
         //call the widgets
         On = (ImageButton)findViewById(R.id.on);
         Off = (ImageButton)findViewById(R.id.off);
-        Discnt = (ImageButton)findViewById(R.id.discnt);
+        Disconnect = (ImageButton)findViewById(R.id.discnt);
         Abt = (ImageButton)findViewById(R.id.abt);
+        seekHeatLevel = (SeekBar) findViewById(seekHeatControl);
+
+        seekHeatLevel.setMax(3);
 
         new ConnectBT().execute(); //Call the class to connect
+
+        // getting seekbar current value
+
+        seekHeatLevel.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            int currentVal = 0 ;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b)
+            {
+                currentVal = i ;
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+                send2Bluetooth( 100, currentVal );
+
+
+                Toast.makeText(getApplicationContext(), "Heat: "+ currentVal, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         //commands to be sent to bluetooth
         On.setOnClickListener(new View.OnClickListener()
@@ -74,7 +117,7 @@ public class ledControl extends AppCompatActivity {
             }
         });
 
-        Discnt.setOnClickListener(new View.OnClickListener()
+        Disconnect.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -84,6 +127,25 @@ public class ledControl extends AppCompatActivity {
         });
 
 
+    }
+
+    private void send2Bluetooth(int heat, int intensity) {
+        {
+            //make sure there is a paired device
+            if ( btSocket != null )
+            {
+                try
+                {
+                    taOut = btSocket.getOutputStream();
+                    taOut.write(heat + intensity);
+
+                    taOut.flush();
+                }catch(IOException ioe)
+                {
+                    Log.e( "app>" , "Could not open a output stream "+ ioe );
+                }
+            }
+        }
     }
 
     private void Disconnect()
@@ -168,7 +230,7 @@ public class ledControl extends AppCompatActivity {
         @Override
         protected void onPreExecute()
         {
-            progress = ProgressDialog.show(ledControl.this, "Connecting...", "Please wait.");  //show a progress dialog
+            progress = ProgressDialog.show(heatControl.this, "Connecting...", "Please wait.");  //show a progress dialog
         }
 
         @Override

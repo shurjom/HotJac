@@ -29,7 +29,7 @@
         </activity>
 
         <activity
-            android:name=".ledControl"
+            android:name=".heatControl"
             android:label="HotJac">
 
         </activity>

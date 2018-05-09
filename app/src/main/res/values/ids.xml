@@ -5,6 +5,6 @@
     <item name="action_settings" type="id" />
     <item name="on" type="id" />
     <item name="off" type="id" />
-    <item name="discnt" type="id" />
+    <item name="disconnect" type="id" />
     <item name="abt" type="id" />
 </resources>
