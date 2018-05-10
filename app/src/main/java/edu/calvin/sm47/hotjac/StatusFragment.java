@@ -26,8 +26,6 @@ public class StatusFragment extends Fragment implements View.OnClickListener{
 
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

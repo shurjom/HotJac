@@ -24,7 +24,7 @@ import java.util.Set;
 
 public class DeviceList extends AppCompatActivity
 {
-    //widgets
+    //Widgets control
     Button btnPaired;
     ListView devicelist;
     //Bluetooth

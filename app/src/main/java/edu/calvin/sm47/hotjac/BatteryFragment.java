@@ -50,7 +50,6 @@ public class BatteryFragment extends Fragment {
         batteryTxt.setText("Health: " + health + "%");
 
 
-
     }
 
     @Override

@@ -29,7 +29,7 @@ import static edu.calvin.sm47.hotjac.R.id.seekHeatControl;
 public class heatControl extends AppCompatActivity {
 
    // Button btnOn, btnOff, btnDis;
-    ImageButton On, Off, Disconnect, Abt;
+    ImageButton On, Off, Disconnect;
     String address = null;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
@@ -51,6 +51,11 @@ public class heatControl extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_status);
 
+        //Adds pager adapter support to main activity
+        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
+        pager.setCurrentItem(1);
 
         Intent newint = getIntent();
         address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS); //receive the address of the bluetooth device
@@ -63,7 +68,6 @@ public class heatControl extends AppCompatActivity {
         On = (ImageButton)findViewById(R.id.on);
         Off = (ImageButton)findViewById(R.id.off);
         Disconnect = (ImageButton)findViewById(R.id.discnt);
-        Abt = (ImageButton)findViewById(R.id.abt);
         seekHeatLevel = (SeekBar) findViewById(seekHeatControl);
 
         seekHeatLevel.setMax(3);
@@ -90,7 +94,7 @@ public class heatControl extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
-                send2Bluetooth( 100, currentVal );
+                sendToBluetooth( 100, currentVal );
 
 
                 Toast.makeText(getApplicationContext(), "Heat: "+ currentVal, Toast.LENGTH_SHORT).show();
@@ -129,7 +133,7 @@ public class heatControl extends AppCompatActivity {
 
     }
 
-    private void send2Bluetooth(int heat, int intensity) {
+    private void sendToBluetooth(int heat, int intensity) {
         {
             //make sure there is a paired device
             if ( btSocket != null )

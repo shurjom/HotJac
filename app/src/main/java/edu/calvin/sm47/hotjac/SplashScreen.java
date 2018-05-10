@@ -21,10 +21,11 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_status);
         setContentView(R.layout.splash);
 
+        //Runs the splash screen for 600 ms
         Thread timerThread = new Thread(){
             public void run(){
                 try{
-                    sleep(700);
+                    sleep(600);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{
